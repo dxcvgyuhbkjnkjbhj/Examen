@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <span class="{{ 'completed' if task['done'] else '' }}">{{ task['task'] }}</span>
+            <a href="{{ url_for('complete_task', task_id=loop.index0) }}">[Marcar como {{ 'pendiente' if task['done'] else 'completada' }}]</a>
+            <a href="{{ url_for('delete_task', task_id=loop.index0) }}">[Eliminar]</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('add_task') }}">Agregar nueva tarea</a>
+</body>
+</html>
+
